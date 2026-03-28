@@ -19,6 +19,47 @@ const EXAMPLE_CONTENT = [
 const COMPLEXITY_COLORS = { low: "#2D9B5A", medium: "#E8872A", high: "#E63946" };
 const COMPLEXITY_BG = { low: "#EAF7EF", medium: "#FEF3E8", high: "#FDEBED" };
 
+// ── Loading Skeleton Component ──
+function ResultSkeleton() {
+  return (
+    <div className="results">
+      <div className="card skeleton-card">
+        <div className="skeleton-header">
+          <div className="skel skel-label" />
+          <div className="skel skel-btn" />
+        </div>
+        <div className="skeleton-badges">
+          {[100, 110, 90, 105, 140].map((w, i) => (
+            <div key={i} className="skel skel-badge" style={{ width: w }} />
+          ))}
+        </div>
+        <div className="skel skel-signals" />
+      </div>
+      <div className="card skeleton-card">
+        <div className="skel skel-rec-header" />
+        <div className="skeleton-body">
+          <div className="skel skel-line" style={{ width: "45%" }} />
+          <div className="skel skel-line" />
+          <div className="skel skel-line" style={{ width: "85%" }} />
+          <div className="skel skel-line" style={{ width: "70%" }} />
+          <div className="skel skel-divider" />
+          <div className="skel skel-line" style={{ width: "40%" }} />
+          <div className="skel skel-line" />
+          <div className="skel skel-line" style={{ width: "65%" }} />
+          <div className="skel skel-divider" />
+          <div className="skel skel-example" />
+        </div>
+      </div>
+      <div className="card skeleton-card">
+        <div className="skeleton-body">
+          <div className="skel skel-line" style={{ width: "55%" }} />
+          <div className="skel skel-line" style={{ width: "80%" }} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   const [content, setContent] = useState("");
   const [result, setResult] = useState(null);
@@ -146,7 +187,7 @@ Alternative: ${result.recommendation.alternativeInteraction}`;
             value={content}
             onChange={e => { setContent(e.target.value); setResult(null); setError(null); }}
             placeholder="Paste a learning concept, process description, or scenario here...&#10;&#10;Example: 'To submit an expense report, log in to the portal and click New Expense...'"
-            rows={7}
+            rows={5}
           />
 
           <div className="input-footer">
@@ -170,16 +211,23 @@ Alternative: ${result.recommendation.alternativeInteraction}`;
             </div>
           </div>
 
+          {/* ── Error box with Retry button ── */}
           {error && (
             <div className="error-box">
               <span className="error-icon">⚠</span>
-              {error}
+              <span className="error-msg">{error}</span>
+              <button className="retry-btn" onClick={handleAnalyse}>
+                Retry →
+              </button>
             </div>
           )}
         </div>
 
+        {/* ── Loading Skeleton ── */}
+        {loading && <ResultSkeleton />}
+
         {/* ── Results ── */}
-        {result && (
+        {result && !loading && (
           <div className="results">
             {/* Classification summary */}
             <div className="card classification-card">
