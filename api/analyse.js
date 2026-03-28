@@ -1,11 +1,11 @@
 // ============================================================
-// InteractIQ API - Vercel Serverless Function
+// InteractIQ API — Vercel Serverless Function
 // File: api/analyse.js
+// v1.1 — Cognitive complexity scoring fix
 // ============================================================
 
 const Anthropic = require("@anthropic-ai/sdk");
 
-// ── Interaction mapping (server-side copy, no ES module imports) ──
 const INTERACTION_MAP = {
   concept: {
     low: { primary: "Flashcard / Flip card", alternative: "True/False + Justification" },
@@ -49,41 +49,73 @@ const INTERACTION_MAP = {
   }
 };
 
+// ── Pre-compute cognitive complexity signals ──
+function computeCognitiveSignals(text) {
+  return {
+    branchCount: (text.match(/\bif\b|\belse if\b|\bwhether\b|\balternatively\b|\botherwise\b/gi) || []).length,
+    consequenceCount: (text.match(/\bmust\b|\bshould\b|\brequired\b|\bapologise\b|\bapologize\b|\bcompensate\b|\brefund\b|\breplace\b|\bdocument\b|\bpenalt|\bescalat|\bdisciplin|\bliab/gi) || []).length,
+    stakeholderCount: (text.match(/\bcustomer\b|\bmanager\b|\bclient\b|\bteam\b|\bemployee\b|\blearner\b|\buser\b|\bstudent\b|\bpatient\b|\bpartner\b/gi) || []).length,
+    judgmentCount: (text.match(/\bassess\b|\bevaluate\b|\bdetermine\b|\bdecide\b|\bconsider\b|\bjudge\b|\bprioritis|\bprioritiz/gi) || []).length,
+    interpersonalCount: (text.match(/\bfeel\b|\bempath|\bsensitiv|\brespect\b|\bpatiently\b|\bfoolish\b|\bdignit|\bcomfort\b|\bembarras/gi) || []).length,
+    wordCount: text.trim().split(/\s+/).length
+  };
+}
+
+// ── Deterministic complexity override ──
+function applyComplexityOverride(llmComplexity, signals) {
+  const { branchCount, consequenceCount, judgmentCount, interpersonalCount, wordCount } = signals;
+  const isDefinitelyHigh = (
+    branchCount >= 3 ||
+    (branchCount >= 2 && consequenceCount >= 3) ||
+    (judgmentCount >= 2 && consequenceCount >= 3) ||
+    (interpersonalCount >= 2 && branchCount >= 2)
+  );
+  const isDefinitelyLow = (
+    wordCount < 25 && branchCount === 0 && consequenceCount === 0 && judgmentCount === 0
+  );
+  if (isDefinitelyHigh && llmComplexity !== "high") return "high";
+  if (isDefinitelyLow && llmComplexity === "high") return "low";
+  return llmComplexity;
+}
+
 function getMappedInteraction(contentType, complexity) {
   const type = (contentType || "concept").toLowerCase().replace(/\s+/g, "_");
   const comp = (complexity || "medium").toLowerCase();
   const typeKey = INTERACTION_MAP[type] ? type : "concept";
   const compKey = ["low", "medium", "high"].includes(comp) ? comp : "medium";
   let mapped = { ...INTERACTION_MAP[typeKey][compKey] };
-
-  // Hard constraints
   if (typeKey === "compliance") {
     const allowed = ["Multiple Choice Question (MCQ)", "Scenario + Decision Branch", "Simulation / Guided walkthrough"];
-    if (!allowed.includes(mapped.primary)) {
-      mapped.primary = "Scenario + Decision Branch";
-      mapped.alternative = "Multiple Choice Question (MCQ)";
-    }
+    if (!allowed.includes(mapped.primary)) { mapped.primary = "Scenario + Decision Branch"; mapped.alternative = "Multiple Choice Question (MCQ)"; }
   }
   if (typeKey === "soft_skill") {
     const softAllowed = ["Scenario + Decision Branch", "Case Study + Reflection", "Simulation / Guided walkthrough", "True/False + Justification"];
     if (!softAllowed.includes(mapped.primary)) mapped.primary = "Scenario + Decision Branch";
   }
   if (typeKey === "process" && mapped.primary === "Flashcard / Flip card") {
-    mapped.primary = "Sequence / Ordering";
-    mapped.alternative = "Guided Walkthrough / Simulation";
+    mapped.primary = "Sequence / Ordering"; mapped.alternative = "Guided Walkthrough / Simulation";
   }
   if (comp === "low") {
     const overComplex = ["Case Study + Reflection", "Simulation / Guided walkthrough"];
-    if (overComplex.includes(mapped.primary)) {
-      mapped.primary = INTERACTION_MAP[typeKey].low.primary;
-      mapped.alternative = INTERACTION_MAP[typeKey].low.alternative;
-    }
+    if (overComplex.includes(mapped.primary)) { mapped.primary = INTERACTION_MAP[typeKey].low.primary; mapped.alternative = INTERACTION_MAP[typeKey].low.alternative; }
   }
   return mapped;
 }
 
-// ── Prompt 1: Classification ──
-function buildClassificationPrompt(text) {
+// ── Prompt 1: Classification with cognitive signals ──
+function buildClassificationPrompt(text, signals) {
+  const { branchCount, consequenceCount, judgmentCount, interpersonalCount, stakeholderCount } = signals;
+  const hints = [];
+  if (branchCount >= 3) hints.push(`- ${branchCount} conditional branches (if/whether/else) → strong HIGH complexity signal`);
+  else if (branchCount === 2) hints.push(`- 2 conditional branches → medium-HIGH signal`);
+  else if (branchCount === 1) hints.push(`- 1 conditional branch detected`);
+  if (consequenceCount >= 3) hints.push(`- ${consequenceCount} consequence words (must/apologise/refund/document) → HIGH signal`);
+  else if (consequenceCount > 0) hints.push(`- ${consequenceCount} consequence word(s) detected`);
+  if (judgmentCount >= 2) hints.push(`- ${judgmentCount} judgment verbs (assess/evaluate/determine) → HIGH signal`);
+  if (interpersonalCount >= 2) hints.push(`- ${interpersonalCount} interpersonal/emotional signals → HIGH signal`);
+  if (stakeholderCount >= 2) hints.push(`- ${stakeholderCount} stakeholders mentioned`);
+  if (hints.length === 0) hints.push(`- No strong complexity signals — assess from content structure`);
+
   return `You are an expert eLearning instructional design classifier.
 
 Analyse the following learning content and classify it precisely.
@@ -92,6 +124,18 @@ CONTENT:
 """
 ${text}
 """
+
+PRE-COMPUTED COGNITIVE SIGNALS (use these to inform your complexity rating):
+${hints.join("\n")}
+
+IMPORTANT: Assess COGNITIVE complexity, not surface complexity.
+Do NOT judge complexity by vocabulary difficulty or sentence length alone.
+Judge by: branching depth, judgment required, consequence weight, context-dependency.
+
+COMPLEXITY DEFINITIONS:
+- LOW: Single concept or fact. Linear flow. No judgment needed. Learner just recalls or recognises.
+- MEDIUM: 2-3 related concepts. Some steps. Basic application. Mild conditional logic.
+- HIGH: Judgment required. Multiple competing branches. Consequences of wrong choice are significant. Context-dependent decisions. Multiple stakeholders affected. No single right answer without reading context.
 
 Return ONLY valid JSON. No explanation, no markdown, no preamble, no trailing text.
 
@@ -146,7 +190,6 @@ Return ONLY valid JSON. No markdown, no preamble:
 }`;
 }
 
-// ── Input validation (server-side) ──
 function validateInput(text) {
   if (!text || typeof text !== "string") return { valid: false, error: "No content provided." };
   const trimmed = text.trim();
@@ -158,68 +201,59 @@ function validateInput(text) {
   return { valid: true };
 }
 
-// ── Safe JSON parse ──
 function safeParseJSON(text) {
   try {
-    // Strip markdown code fences if present
     const cleaned = text.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
     return JSON.parse(cleaned);
   } catch {
-    // Try to extract JSON object from text
     const match = text.match(/\{[\s\S]*\}/);
-    if (match) {
-      try { return JSON.parse(match[0]); } catch { return null; }
-    }
+    if (match) { try { return JSON.parse(match[0]); } catch { return null; } }
     return null;
   }
 }
 
-// ── Main handler ──
 module.exports = async function handler(req, res) {
-  // CORS headers
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-
   if (req.method === "OPTIONS") return res.status(200).end();
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
   const { content } = req.body || {};
-
-  // Validate input
   const validation = validateInput(content);
-  if (!validation.valid) {
-    return res.status(400).json({ error: validation.error });
-  }
+  if (!validation.valid) return res.status(400).json({ error: validation.error });
 
-  // Initialize Anthropic client
+  // Pre-compute cognitive signals before any API call
+  const signals = computeCognitiveSignals(content);
+
   const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
   try {
-    // ── CALL 1: Classification ──
+    // CALL 1: Classification with cognitive signals injected into prompt
     const classifyResponse = await client.messages.create({
       model: "claude-sonnet-4-20250514",
       max_tokens: 500,
-      messages: [{ role: "user", content: buildClassificationPrompt(content) }]
+      messages: [{ role: "user", content: buildClassificationPrompt(content, signals) }]
     });
 
-    const classificationRaw = classifyResponse.content[0]?.text || "";
-    const classification = safeParseJSON(classificationRaw);
+    const classification = safeParseJSON(classifyResponse.content[0]?.text || "");
+    if (!classification) return res.status(500).json({ error: "Classification failed. Please try again." });
 
-    if (!classification) {
-      return res.status(500).json({ error: "Classification failed. Please try again." });
-    }
-
-    // Sanitise classification values
     const validTypes = ["concept", "process", "decision", "comparison", "principle", "troubleshooting", "compliance", "soft_skill"];
     const validComplexity = ["low", "medium", "high"];
     if (!validTypes.includes(classification.primary_type)) classification.primary_type = "concept";
     if (!validComplexity.includes(classification.complexity)) classification.complexity = "medium";
 
-    // ── RULE ENGINE: Map to interaction ──
+    // Apply deterministic complexity override — catches cognitive complexity the LLM misses
+    const originalComplexity = classification.complexity;
+    classification.complexity = applyComplexityOverride(classification.complexity, signals);
+    if (classification.complexity !== originalComplexity) {
+      if (!classification.key_signals) classification.key_signals = [];
+      classification.key_signals.push(`Complexity corrected ${originalComplexity}→${classification.complexity}: ${signals.branchCount} branches, ${signals.consequenceCount} consequence signals`);
+    }
+
     const mapped = getMappedInteraction(classification.primary_type, classification.complexity);
 
-    // Confidence gate - if low confidence, note it
     const confidence = parseFloat(classification.confidence) || 0.7;
     let confidenceLabel, confidenceColor;
     if (confidence >= 0.85) { confidenceLabel = "Strong recommendation"; confidenceColor = "#2D9B5A"; }
@@ -227,36 +261,19 @@ module.exports = async function handler(req, res) {
     else if (confidence >= 0.60) { confidenceLabel = "Review alternatives"; confidenceColor = "#E8872A"; }
     else { confidenceLabel = "Mixed signals"; confidenceColor = "#E63946"; }
 
-    // ── CALL 2: Recommendation ──
+    // CALL 2: Recommendation
     const recommendResponse = await client.messages.create({
       model: "claude-sonnet-4-20250514",
       max_tokens: 600,
       messages: [{ role: "user", content: buildRecommendationPrompt(content, classification, mapped.primary, mapped.alternative) }]
     });
 
-    const recommendationRaw = recommendResponse.content[0]?.text || "";
-    const recommendation = safeParseJSON(recommendationRaw);
+    const recommendation = safeParseJSON(recommendResponse.content[0]?.text || "");
+    if (!recommendation) return res.status(500).json({ error: "Recommendation generation failed. Please try again." });
 
-    if (!recommendation) {
-      return res.status(500).json({ error: "Recommendation generation failed. Please try again." });
-    }
-
-    // ── Compose final response ──
-    const TYPE_LABELS = {
-      concept: "Concept", process: "Process", decision: "Decision / Judgment",
-      comparison: "Comparison", principle: "Principle / Rule",
-      troubleshooting: "Troubleshooting", compliance: "Compliance", soft_skill: "Soft Skill"
-    };
-
-    const BLOOMS_LABELS = {
-      remember: "Remember", understand: "Understand", apply: "Apply",
-      analyse: "Analyse", evaluate: "Evaluate", create: "Create"
-    };
-
-    const BLOOMS_COLORS = {
-      remember: "#68788e", understand: "#4A5D79", apply: "#1D3557",
-      analyse: "#E8872A", evaluate: "#E63946", create: "#2D9B5A"
-    };
+    const TYPE_LABELS = { concept: "Concept", process: "Process", decision: "Decision / Judgment", comparison: "Comparison", principle: "Principle / Rule", troubleshooting: "Troubleshooting", compliance: "Compliance", soft_skill: "Soft Skill" };
+    const BLOOMS_LABELS = { remember: "Remember", understand: "Understand", apply: "Apply", analyse: "Analyse", evaluate: "Evaluate", create: "Create" };
+    const BLOOMS_COLORS = { remember: "#68788e", understand: "#4A5D79", apply: "#1D3557", analyse: "#E8872A", evaluate: "#E63946", create: "#2D9B5A" };
 
     return res.status(200).json({
       classification: {
@@ -269,10 +286,14 @@ module.exports = async function handler(req, res) {
         bloomLabel: BLOOMS_LABELS[classification.bloom_level] || "Understand",
         bloomColor: BLOOMS_COLORS[classification.bloom_level] || "#4A5D79",
         wordCount: classification.word_count || content.trim().split(/\s+/).length,
-        confidence: confidence,
-        confidenceLabel,
-        confidenceColor,
-        keySignals: classification.key_signals || []
+        confidence, confidenceLabel, confidenceColor,
+        keySignals: classification.key_signals || [],
+        cognitiveSignals: {
+          branches: signals.branchCount,
+          consequences: signals.consequenceCount,
+          judgmentVerbs: signals.judgmentCount,
+          interpersonal: signals.interpersonalCount
+        }
       },
       recommendation: {
         primaryInteraction: mapped.primary,
