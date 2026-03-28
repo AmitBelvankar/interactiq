@@ -157,7 +157,7 @@ Alternative: ${result.recommendation.alternativeInteraction}`;
           <span className="hero-accent">your content become?</span>
         </h1>
         <p className="hero-sub">
-          Paste any learning content - a concept, process, or scenario —
+          Paste any learning content - a concept, process, or scenario -
           and get an intelligent, rule-grounded interaction recommendation.
         </p>
       </section>
