@@ -1,5 +1,5 @@
 // ============================================================
-// InteractIQ API — Vercel Serverless Function
+// InteractIQ API - Vercel Serverless Function
 // File: api/analyse.js
 // ============================================================
 
@@ -219,7 +219,7 @@ module.exports = async function handler(req, res) {
     // ── RULE ENGINE: Map to interaction ──
     const mapped = getMappedInteraction(classification.primary_type, classification.complexity);
 
-    // Confidence gate — if low confidence, note it
+    // Confidence gate - if low confidence, note it
     const confidence = parseFloat(classification.confidence) || 0.7;
     let confidenceLabel, confidenceColor;
     if (confidence >= 0.85) { confidenceLabel = "Strong recommendation"; confidenceColor = "#2D9B5A"; }
