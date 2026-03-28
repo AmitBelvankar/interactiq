@@ -157,7 +157,7 @@ Alternative: ${result.recommendation.alternativeInteraction}`;
           <span className="hero-accent">your content become?</span>
         </h1>
         <p className="hero-sub">
-          Paste any learning content — a concept, process, or scenario —
+          Paste any learning content - a concept, process, or scenario —
           and get an intelligent, rule-grounded interaction recommendation.
         </p>
       </section>
@@ -192,7 +192,7 @@ Alternative: ${result.recommendation.alternativeInteraction}`;
 
           <div className="input-footer">
             <span className={`word-count ${isOverLimit ? "wc-error" : isUnderMin ? "wc-warn" : wordCount > 0 ? "wc-ok" : ""}`}>
-              {wordCount > 0 ? `${wordCount} words ${isOverLimit ? "— too long (max 400)" : isUnderMin ? "— too short (min 15)" : ""}` : "Min 15 words · Max 400 words"}
+              {wordCount > 0 ? `${wordCount} words ${isOverLimit ? "- too long (max 400)" : isUnderMin ? "- too short (min 15)" : ""}` : "Min 15 words · Max 400 words"}
             </span>
             <div className="input-actions">
               {content && <button className="reset-btn" onClick={handleReset}>Clear</button>}
@@ -263,7 +263,7 @@ Alternative: ${result.recommendation.alternativeInteraction}`;
                 <div className="badge" style={{ background: result.classification.confidenceColor + "18" }}>
                   <span className="badge-key">Confidence</span>
                   <span className="badge-val" style={{ color: result.classification.confidenceColor }}>
-                    {Math.round(result.classification.confidence * 100)}% — {result.classification.confidenceLabel}
+                    {Math.round(result.classification.confidence * 100)}% - {result.classification.confidenceLabel}
                   </span>
                 </div>
               </div>
@@ -329,7 +329,7 @@ Alternative: ${result.recommendation.alternativeInteraction}`;
       {/* ── Footer ── */}
       <footer className="footer">
         <p>InteractIQ · Harbinger Group · AI-native eLearning tools</p>
-        <p className="footer-note">Recommendations are rule-grounded and AI-explained — not purely AI-generated.</p>
+        <p className="footer-note">Recommendations are rule-grounded and AI-explained - not purely AI-generated.</p>
       </footer>
     </div>
   );
