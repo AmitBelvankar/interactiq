@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>InteractIQ - Harbinger AI-Native eLearning IP</title>
+<title>InteractIQ — Harbinger AI-Native eLearning IP</title>
 <style>
-/* ── Reset & Variables ── */
+/* - Reset & Variables - */
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --red:#E63946;--blue:#1D3557;--blue-mid:#4A5D79;--blue-light:#68788e;
@@ -17,7 +17,7 @@
 html{scroll-behavior:smooth}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--blue);overflow-x:hidden}
 
-/* ── Top Bar ── */
+/* - Top Bar - */
 .topbar{
   position:fixed;top:0;left:0;right:0;height:var(--top-h);
   background:var(--blue);border-bottom:3px solid var(--red);
@@ -35,7 +35,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 }
 .topbar-demo:hover{background:#c8303c}
 
-/* ── Side Nav ── */
+/* - Side Nav - */
 .sidenav{
   position:fixed;top:var(--top-h);left:0;bottom:0;width:var(--nav-w);
   background:var(--white);border-right:1px solid var(--border);
@@ -62,7 +62,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   color:var(--blue-light);padding:20px 20px 8px;opacity:0.6;
 }
 
-/* ── Content Area ── */
+/* - Content Area - */
 .content{margin-left:var(--nav-w);padding-top:var(--top-h)}
 .section{
   min-height:100vh;padding:36px 48px;
@@ -71,7 +71,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .section:nth-child(even){background:var(--white)}
 .section:nth-child(odd){background:var(--bg)}
 
-/* ── Section Headers ── */
+/* - Section Headers - */
 .section-eyebrow{
   display:inline-flex;align-items:center;gap:8px;
   background:rgba(230,57,70,0.08);border:1px solid rgba(230,57,70,0.2);
@@ -89,7 +89,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   max-width:640px;margin-bottom:28px;
 }
 
-/* ── Cards ── */
+/* - Cards - */
 .card{
   background:var(--white);border:1px solid var(--border);
   border-radius:var(--radius);box-shadow:var(--shadow);padding:28px;
@@ -97,14 +97,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .card-red-top{border-top:3px solid var(--red)}
 .card-blue-top{border-top:3px solid var(--blue)}
 
-/* ── Grid helpers ── */
+/* - Grid helpers - */
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
 .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 
-/* ─────────────────────────────────────────
+/* --------------------─
    SECTION: LANDING
-───────────────────────────────────────── */
+--------------------─ */
 #landing{
   background:var(--blue);min-height:100vh;
   justify-content:center;align-items:center;text-align:center;
@@ -152,9 +152,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 }
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
 
-/* ─────────────────────────────────────────
+/* --------------------─
    SECTION: WHY
-───────────────────────────────────────── */
+--------------------─ */
 .pain-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:4px}
 .pain-card{
   background:var(--white);border:1px solid var(--border);
@@ -180,9 +180,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 }
 .why-closer strong{color:#fff}
 
-/* ─────────────────────────────────────────
+/* --------------------─
    SECTION: WHAT
-───────────────────────────────────────── */
+--------------------─ */
 .what-flow{
   display:flex;align-items:center;gap:0;margin-bottom:40px;
   background:var(--white);border:1px solid var(--border);
@@ -231,9 +231,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .map-med{color:var(--warning);font-weight:600}
 .map-high{color:var(--red);font-weight:600}
 
-/* ─────────────────────────────────────────
+/* --------------------─
    SECTION: HOW
-───────────────────────────────────────── */
+--------------------─ */
 .standards-row{
   display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;
 }
@@ -291,9 +291,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   white-space:nowrap;
 }
 
-/* ─────────────────────────────────────────
+/* --------------------─
    SECTION: DEMO
-───────────────────────────────────────── */
+--------------------─ */
 #demo{padding:36px 48px;min-height:100vh;background:var(--white)}
 .demo-header{margin-bottom:20px}
 .demo-frame{
@@ -325,9 +325,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 }
 .demo-note strong{color:var(--blue)}
 
-/* ─────────────────────────────────────────
+/* --------------------─
    SECTION: ROADMAP
-───────────────────────────────────────── */
+--------------------─ */
 .roadmap-track{
   display:flex;gap:0;margin-bottom:28px;position:relative;
 }
@@ -394,9 +394,9 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 }
 .ip-note strong{color:#fff}
 
-/* ─────────────────────────────────────────
+/* --------------------─
    SECTION: GTM
-───────────────────────────────────────── */
+--------------------─ */
 .gtm-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:24px}
 .gtm-card{
   background:var(--white);border:1px solid var(--border);
@@ -446,7 +446,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .gtm-closer strong{color:#fff;font-size:18px;display:block;margin-bottom:6px}
 
 
-/* ── Demo Launch Card ── */
+/* - Demo Launch Card - */
 .demo-launch-card{
   display:grid;grid-template-columns:1fr 1fr;gap:24px;
   background:var(--white);border:1px solid var(--border);
@@ -508,7 +508,39 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 }
 .demo-note strong{color:var(--blue);}
 
-/* ── Responsive ── */
+
+/* - Platform Strip - */
+.platform-strip{
+  display:flex;align-items:center;gap:0;
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow);margin-bottom:24px;
+}
+.platform-layer{
+  flex:1;padding:12px 10px;text-align:center;
+  border-right:1px solid var(--border);
+}
+.platform-layer:last-child{border-right:none}
+.platform-arrow{
+  font-size:14px;color:var(--border);
+  padding:0 4px;flex-shrink:0;font-weight:700;
+}
+.pl-label{
+  font-size:8px;font-weight:700;letter-spacing:0.8px;
+  text-transform:uppercase;color:var(--blue-light);margin-bottom:4px;
+}
+.pl-name{font-size:11px;font-weight:700;color:var(--blue);margin-bottom:3px}
+.pl-desc{font-size:9px;color:var(--blue-light);line-height:1.3}
+.layer-active{background:var(--blue);}
+.layer-active .pl-label{color:rgba(255,255,255,0.6)}
+.layer-active .pl-name{color:#fff}
+.layer-active .pl-desc{color:rgba(255,255,255,0.7)}
+.layer-input,.layer-output{background:var(--bg)}
+.layer-ai1{background:#F0F4F8}
+.layer-ai2{background:#EBF0F8}
+.layer-ai3{background:#E8EEF4}
+
+/* - Responsive - */
 @media(max-width:900px){
   :root{--nav-w:56px}
   .nav-item span{display:none}
@@ -526,7 +558,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 </head>
 <body>
 
-<!-- ── Top Bar ── -->
+<!-- - Top Bar - -->
 <header class="topbar">
   <div class="topbar-brand">
     <div class="topbar-mark">H</div>
@@ -538,7 +570,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <a href="/" class="topbar-demo" target="_blank">Live Demo ↗</a>
 </header>
 
-<!-- ── Side Nav ── -->
+<!-- - Side Nav - -->
 <nav class="sidenav">
   <div class="nav-section">Presentation</div>
   <a class="nav-item active" href="#landing" onclick="setActive(this)">
@@ -566,7 +598,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </a>
 </nav>
 
-<!-- ── Content ── -->
+<!-- - Content - -->
 <main class="content">
 
 <!-- ══ LANDING ══ -->
@@ -578,7 +610,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <span>instructional designer</span> on call?
     </h1>
     <p class="landing-sub">
-      InteractIQ is Harbinger's first AI-native eLearning IP - an intelligent interaction recommender that tells authors not just <em>how</em> to build a course, but <em>what</em> to build.
+      InteractIQ is Harbinger's first AI-native eLearning IP — an intelligent interaction recommender that tells authors not just <em>how</em> to build a course, but <em>what</em> to build.
     </p>
     <div class="landing-stats">
       <div class="landing-stat"><div class="num">10</div><div class="lbl">Interaction types</div></div>
@@ -597,13 +629,13 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 <section class="section" id="why">
   <div class="section-eyebrow">01 · Why</div>
   <h2 class="section-title">The gap between <span>content</span> and <span>learning</span></h2>
-  <p class="section-sub">Authors know their subject. Instructional designers know pedagogy. Today there's nothing in between - until now.</p>
+  <p class="section-sub">Authors know their subject. Instructional designers know pedagogy. Today there's nothing in between — until now.</p>
 
   <div class="pain-cards">
     <div class="pain-card">
       <div class="pain-num">01</div>
       <div class="pain-title">Wrong interactions = poor learning</div>
-      <p class="pain-body">Most authors default to MCQs for everything - regardless of content type. A process becomes a quiz. A decision scenario becomes a fact check. Learners disengage and retention drops.</p>
+      <p class="pain-body">Most authors default to MCQs for everything — regardless of content type. A process becomes a quiz. A decision scenario becomes a fact check. Learners disengage and retention drops.</p>
       <span class="pain-stat">70% of courses use only MCQ</span>
     </div>
     <div class="pain-card">
@@ -621,15 +653,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
 
   <div class="why-closer">
-    <strong>InteractIQ fills the gap</strong> between content creation and learning design - delivering expert-level interaction recommendations at zero marginal cost per analysis.
+    <strong>InteractIQ fills the gap</strong> between content creation and learning design — delivering expert-level interaction recommendations at zero marginal cost per analysis.
   </div>
 </section>
 
 <!-- ══ WHAT ══ -->
 <section class="section" id="what">
   <div class="section-eyebrow">02 · What</div>
-  <h2 class="section-title">The <span>solution</span> - and how it thinks</h2>
-  <p class="section-sub">Paste any learning content. InteractIQ classifies it, maps it to the right interaction, and explains why - grounded in instructional design rules, not AI guesswork.</p>
+  <h2 class="section-title">The <span>solution</span> — and how it thinks</h2>
+  <p class="section-sub">Paste any learning content. InteractIQ classifies it, maps it to the right interaction, and explains why — grounded in instructional design rules, not AI guesswork.</p>
 
   <!-- Flow -->
   <div class="what-flow">
@@ -680,7 +712,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
 
   <!-- Mapping Table -->
-  <h3 style="font-size:15px;font-weight:700;color:var(--blue);margin-bottom:16px">2D Mapping Intelligence - Content Type × Complexity</h3>
+  <h3 style="font-size:15px;font-weight:700;color:var(--blue);margin-bottom:16px">2D Mapping Intelligence — Content Type × Complexity</h3>
   <table class="mapping-table">
     <thead>
       <tr>
@@ -707,7 +739,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 <section class="section" id="how">
   <div class="section-eyebrow">03 · How</div>
   <h2 class="section-title">Built on <span>standards</span>, powered by rules</h2>
-  <p class="section-sub">InteractIQ is not a pure AI tool. It is a rule-grounded decision engine - AI classifies and explains, rules decide. This makes recommendations consistent, defensible, and trustworthy.</p>
+  <p class="section-sub">InteractIQ is not a pure AI tool. It is a rule-grounded decision engine — AI classifies and explains, rules decide. This makes recommendations consistent, defensible, and trustworthy.</p>
 
   <!-- Standards -->
   <h3 style="font-size:14px;font-weight:700;color:var(--blue);margin-bottom:14px">Industry Standards Foundation</h3>
@@ -720,7 +752,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
 
   <!-- 5 Guardrail Layers -->
-  <h3 style="font-size:14px;font-weight:700;color:var(--blue);margin-bottom:14px">5 Guardrail Layers - Rules That Protect Every Recommendation</h3>
+  <h3 style="font-size:14px;font-weight:700;color:var(--blue);margin-bottom:14px">5 Guardrail Layers — Rules That Protect Every Recommendation</h3>
   <div class="guardrail-flow">
     <div class="guardrail-step">
       <div class="gr-num">1</div>
@@ -735,7 +767,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <div class="guardrail-step">
       <div class="gr-num">3</div>
       <div class="gr-title">Interaction Mapping</div>
-      <div class="gr-desc">2D rule table - type × complexity, deterministic</div>
+      <div class="gr-desc">2D rule table — type × complexity, deterministic</div>
     </div>
     <div class="guardrail-step">
       <div class="gr-num">4</div>
@@ -772,7 +804,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 <section id="demo" style="min-height:100vh;padding:36px 48px;background:var(--white);display:flex;flex-direction:column;justify-content:center;">
   <div class="section-eyebrow">04 · Live Demo</div>
   <h2 class="section-title">See it <span>in action</span></h2>
-  <p class="section-sub">InteractIQ is live and working right now. Click below to open it in a new tab - paste any learning content and get an instant, rule-grounded interaction recommendation.</p>
+  <p class="section-sub">InteractIQ is live and working right now. Click below to open it in a new tab — paste any learning content and get an instant, rule-grounded interaction recommendation.</p>
 
   <div class="demo-launch-card">
     <div class="demo-launch-left">
@@ -781,7 +813,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
         <div class="demo-step"><div class="demo-step-num">1</div><span>Paste any learning content paragraph</span></div>
         <div class="demo-step"><div class="demo-step-num">2</div><span>AI classifies content type + Bloom's level + complexity</span></div>
         <div class="demo-step"><div class="demo-step-num">3</div><span>Rule engine selects the right interaction (deterministic)</span></div>
-        <div class="demo-step"><div class="demo-step-num">4</div><span>AI explains why - with example + author tip</span></div>
+        <div class="demo-step"><div class="demo-step-num">4</div><span>AI explains why — with example + author tip</span></div>
       </div>
       <div class="demo-cost-note">Total API cost per analysis: <strong>~$0.003</strong></div>
     </div>
@@ -801,28 +833,61 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
 
   <div class="demo-note">
-    <strong>Under the hood:</strong> Two Claude API calls + a deterministic rule engine. The AI classifies and explains. The rules decide. This combination makes recommendations consistent, grounded, and trustworthy - not AI guesswork.
+    <strong>Under the hood:</strong> Two Claude API calls + a deterministic rule engine. The AI classifies and explains. The rules decide. This combination makes recommendations consistent, grounded, and trustworthy — not AI guesswork.
   </div>
 </section>
 
 <!-- ══ ROADMAP ══ -->
 <section class="section" id="roadmap">
   <div class="section-eyebrow">05 · Roadmap</div>
-  <h2 class="section-title">Feature 1 of a <span>broader IP portfolio</span></h2>
-  <p class="section-sub">InteractIQ is the first of multiple AI-native eLearning IP products. Each is independently buildable, priceable, and sellable.</p>
+  <h2 class="section-title">Layer 3 of <span>CourseGen Studio</span></h2>
+  <p class="section-sub">InteractIQ is the first capability built within CourseGen Studio — Harbinger's vision for an AI-native course generation platform. It stands alone today. It becomes more powerful as each layer is added.</p>
+
+  <!-- Platform vision strip -->
+  <div class="platform-strip">
+    <div class="platform-layer layer-input">
+      <div class="pl-label">Input</div>
+      <div class="pl-name">Content Ingestion</div>
+      <div class="pl-desc">Accept raw &amp; legacy inputs</div>
+    </div>
+    <div class="platform-arrow">→</div>
+    <div class="platform-layer layer-ai1">
+      <div class="pl-label">AI Layer 1</div>
+      <div class="pl-name">ContentIQ</div>
+      <div class="pl-desc">Understand content</div>
+    </div>
+    <div class="platform-arrow">→</div>
+    <div class="platform-layer layer-ai2">
+      <div class="pl-label">AI Layer 2</div>
+      <div class="pl-name">DesignIQ</div>
+      <div class="pl-desc">Decide learning structure</div>
+    </div>
+    <div class="platform-arrow">→</div>
+    <div class="platform-layer layer-ai3 layer-active">
+      <div class="pl-label">AI Layer 3</div>
+      <div class="pl-name">InteractIQ ✓</div>
+      <div class="pl-desc">Build experiences</div>
+    </div>
+    <div class="platform-arrow">→</div>
+    <div class="platform-layer layer-output">
+      <div class="pl-label">Output</div>
+      <div class="pl-name">Course Renderer</div>
+      <div class="pl-desc">Generate SCORM · AICC · xAPI</div>
+    </div>
+  </div>
 
   <div class="roadmap-track">
     <div class="roadmap-phase phase-now">
       <div class="phase-dot">✓</div>
       <div class="phase-card">
         <div class="phase-label">Now · Live</div>
-        <div class="phase-title">InteractIQ MVP</div>
+        <div class="phase-title">InteractIQ — AI Layer 3</div>
         <ul class="phase-items">
-          <li>Interaction recommender</li>
-          <li>8 content types</li>
-          <li>10 interaction types</li>
-          <li>5 guardrail layers</li>
-          <li>Deployed on Vercel</li>
+          <li>Interaction recommender engine</li>
+          <li>8 content types · 10 interaction types</li>
+          <li>Cognitive complexity detection</li>
+          <li>Bloom's taxonomy alignment</li>
+          <li>Rule-grounded · AI-explained</li>
         </ul>
         <span class="phase-tag tag-live">Live ✓</span>
       </div>
@@ -830,14 +895,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <div class="roadmap-phase phase-2">
       <div class="phase-dot">2</div>
       <div class="phase-card">
-        <div class="phase-label">Phase 2 · 4–8 weeks</div>
-        <div class="phase-title">InteractIQ Pro</div>
+        <div class="phase-label">Phase 2 · Q3 2026</div>
+        <div class="phase-title">ContentIQ + DesignIQ</div>
         <ul class="phase-items">
-          <li>Full course structure planner</li>
-          <li>Bloom's level optimiser</li>
-          <li>Multi-module sequencing</li>
-          <li>Export to authoring tools</li>
-          <li>User accounts + history</li>
+          <li>Upload PDF, PPT, video, legacy SCORM</li>
+          <li>AI extracts concepts + structures knowledge</li>
+          <li>Generates full learning blueprint</li>
+          <li>Module sequence + objectives + interactions</li>
+          <li>Human review + approval checkpoint</li>
         </ul>
         <span class="phase-tag tag-next">Next</span>
       </div>
@@ -845,14 +910,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <div class="roadmap-phase phase-3">
       <div class="phase-dot">3</div>
       <div class="phase-card">
-        <div class="phase-label">Phase 3 · Q3 2026</div>
-        <div class="phase-title">Smart Accessibility Suite</div>
+        <div class="phase-label">Phase 3 · Q4 2026</div>
+        <div class="phase-title">AccessIQ + Course Renderer</div>
         <ul class="phase-items">
-          <li>WCAG 2.2 scan engine</li>
-          <li>AI alt text generation</li>
-          <li>Caption generation</li>
-          <li>SCORM package scanner</li>
-          <li>Compliance reporting</li>
+          <li>WCAG 2.2 auto-compliance on output</li>
+          <li>AI alt-text + caption generation</li>
+          <li>Publish as SCORM · AICC · xAPI</li>
+          <li>All major LMS platforms supported</li>
+          <li>Human preview + approve before render</li>
         </ul>
         <span class="phase-tag tag-future">Planned</span>
       </div>
@@ -860,14 +925,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
     <div class="roadmap-phase phase-4">
       <div class="phase-dot">4</div>
       <div class="phase-card">
-        <div class="phase-label">Phase 4 · Q4 2026</div>
-        <div class="phase-title">Harbinger AI Platform</div>
+        <div class="phase-label">Phase 4 · 2027</div>
+        <div class="phase-title">CourseGen Studio</div>
         <ul class="phase-items">
-          <li>Unified API for all tools</li>
-          <li>White-label licensing</li>
-          <li>Adobe Captivate plugin</li>
-          <li>Enterprise dashboard</li>
-          <li>LMS integrations</li>
+          <li>Unified AI pipeline — content to course</li>
+          <li>Adobe Captivate + Articulate plugins</li>
+          <li>Enterprise: multi-author + brand control</li>
+          <li>White-label licensing for tool vendors</li>
+          <li>Raw content to published course in hours</li>
         </ul>
         <span class="phase-tag tag-future">Vision</span>
       </div>
@@ -875,90 +940,89 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
 
   <div class="ip-note">
-    <strong>Key principle:</strong> Every IP product is independently buildable and sellable. InteractIQ generates revenue today while the broader platform is built. Smart Accessibility Suite can be pitched to Adobe as a standalone product - or as part of a unified Harbinger AI eLearning Platform.
+    <strong>Key principle:</strong> InteractIQ starts as a standalone product — priced and sold independently today. As each layer is added, it becomes a pricing tier within CourseGen Studio. Customers start where they feel the most pain and expand from there. Each phase is funded by the previous.
   </div>
 </section>
 
 <!-- ══ GTM ══ -->
 <section class="section" id="gtm">
   <div class="section-eyebrow">06 · Go To Market</div>
-  <h2 class="section-title">Three paths to <span>revenue</span></h2>
-  <p class="section-sub">InteractIQ addresses three distinct customer segments - each with different buying behaviour, pricing, and timeline.</p>
+  <h2 class="section-title">One segment done brilliantly — <span>then expand</span></h2>
+  <p class="section-sub">Products built for all segments simultaneously rarely win any. CourseGen Studio enters through eLearning agencies — fastest adopters, strongest references, and the natural bridge to enterprise.</p>
 
   <div class="gtm-cards">
     <div class="gtm-card">
       <div class="gtm-card-header">
-        <div class="gtm-num">SEGMENT 01</div>
-        <div class="gtm-target">SaaS - Individual Authors</div>
-        <div class="gtm-who">Any eLearning author, any tool</div>
+        <div class="gtm-num">BEACHHEAD · NOW–12 MONTHS</div>
+        <div class="gtm-target">eLearning Agencies &amp; IDs</div>
+        <div class="gtm-who">Course builders working for enterprise clients</div>
       </div>
       <div class="gtm-card-body">
-        <div class="gtm-row"><span class="gtm-key">Price</span><span class="gtm-val">$29–$99 / month</span></div>
-        <div class="gtm-row"><span class="gtm-key">API cost</span><span class="gtm-val">~$2–5 / month</span></div>
+        <div class="gtm-row"><span class="gtm-key">Why they buy</span><span class="gtm-val" style="font-size:10px;text-align:right">Deliver more, faster, better</span></div>
+        <div class="gtm-row"><span class="gtm-key">Price</span><span class="gtm-val">$99–$799 / month</span></div>
+        <div class="gtm-row"><span class="gtm-key">Sales cycle</span><span class="gtm-val">1–4 weeks</span></div>
         <div class="gtm-row"><span class="gtm-key">Margin</span><span class="gtm-val green">85%+</span></div>
-        <div class="gtm-row"><span class="gtm-key">Sales motion</span><span class="gtm-val">Self-serve / PLG</span></div>
-        <div class="gtm-timeline"><div class="tl-dot"></div><div class="tl-text">Available now - URL is live</div></div>
+        <div class="gtm-timeline"><div class="tl-dot"></div><div class="tl-text">InteractIQ live now — agencies can start today</div></div>
       </div>
     </div>
     <div class="gtm-card">
       <div class="gtm-card-header">
-        <div class="gtm-num">SEGMENT 02</div>
-        <div class="gtm-target">B2B - Tool Vendors</div>
-        <div class="gtm-who">Adobe, Articulate, iSpring</div>
+        <div class="gtm-num">EXPANSION · 12–18 MONTHS</div>
+        <div class="gtm-target">Enterprise L&amp;D Teams</div>
+        <div class="gtm-who">Large orgs with 100s of courses to build or modernise</div>
       </div>
       <div class="gtm-card-body">
-        <div class="gtm-row"><span class="gtm-key">Price</span><span class="gtm-val">$150K–300K / year</span></div>
-        <div class="gtm-row"><span class="gtm-key">API cost</span><span class="gtm-val">~$10–20K / year</span></div>
-        <div class="gtm-row"><span class="gtm-key">Margin</span><span class="gtm-val green">94%+</span></div>
-        <div class="gtm-row"><span class="gtm-key">Sales motion</span><span class="gtm-val">BD / partnership</span></div>
-        <div class="gtm-timeline"><div class="tl-dot"></div><div class="tl-text">Adobe pitch - 3–6 months</div></div>
+        <div class="gtm-row"><span class="gtm-key">Why they buy</span><span class="gtm-val" style="font-size:10px;text-align:right">Agencies pull them in</span></div>
+        <div class="gtm-row"><span class="gtm-key">Price</span><span class="gtm-val">$2,500–$5,000 / month</span></div>
+        <div class="gtm-row"><span class="gtm-key">Sales cycle</span><span class="gtm-val">6–12 months</span></div>
+        <div class="gtm-row"><span class="gtm-key">Margin</span><span class="gtm-val green">95%+</span></div>
+        <div class="gtm-timeline"><div class="tl-dot"></div><div class="tl-text">Inbound — pulled by agency client relationships</div></div>
       </div>
     </div>
     <div class="gtm-card">
       <div class="gtm-card-header">
-        <div class="gtm-num">SEGMENT 03</div>
-        <div class="gtm-target">Enterprise - L&D Teams</div>
-        <div class="gtm-who">Fortune 500, Govt, Education</div>
+        <div class="gtm-num">PLATFORM · 18–24 MONTHS</div>
+        <div class="gtm-target">Authoring Tool Vendors</div>
+        <div class="gtm-who">Adobe, Articulate — existing Harbinger relationships</div>
       </div>
       <div class="gtm-card-body">
-        <div class="gtm-row"><span class="gtm-key">Price</span><span class="gtm-val">$25K–50K / year</span></div>
-        <div class="gtm-row"><span class="gtm-key">API cost</span><span class="gtm-val">~$50–200 / year</span></div>
+        <div class="gtm-row"><span class="gtm-key">Why they buy</span><span class="gtm-val" style="font-size:10px;text-align:right">Traction = leverage</span></div>
+        <div class="gtm-row"><span class="gtm-key">Model</span><span class="gtm-val">OEM license + rev share</span></div>
+        <div class="gtm-row"><span class="gtm-key">Sales cycle</span><span class="gtm-val">3–6 months BD</span></div>
         <div class="gtm-row"><span class="gtm-key">Margin</span><span class="gtm-val green">99%+</span></div>
-        <div class="gtm-row"><span class="gtm-key">Sales motion</span><span class="gtm-val">Direct enterprise</span></div>
-        <div class="gtm-timeline"><div class="tl-dot"></div><div class="tl-text">6–12 months sales cycle</div></div>
+        <div class="gtm-timeline"><div class="tl-dot"></div><div class="tl-text">Enterprise logos unlock the Adobe conversation</div></div>
       </div>
     </div>
   </div>
 
-  <!-- Cost table -->
+  <!-- Revenue projection -->
   <table class="cost-table">
     <thead>
-      <tr><th>Pricing Model</th><th>Price</th><th>AI API Cost</th><th>Gross Margin</th></tr>
+      <tr><th>Year</th><th>Primary Driver</th><th>Revenue (ARR)</th><th>Stage</th></tr>
     </thead>
     <tbody>
-      <tr><td>Per analysis</td><td>$2.00</td><td>~$0.003</td><td><span class="margin-pill">99%</span></td></tr>
-      <tr><td>Monthly SaaS</td><td>$29–99/mo</td><td>~$2–5/mo</td><td><span class="margin-pill">85–94%</span></td></tr>
-      <tr><td>B2B license</td><td>$150K–300K/yr</td><td>~$10–20K/yr</td><td><span class="margin-pill">94%</span></td></tr>
-      <tr><td>Enterprise annual</td><td>$25K–50K/yr</td><td>~$200/yr</td><td><span class="margin-pill">99%</span></td></tr>
+      <tr><td>Year 1</td><td>Agency SaaS — InteractIQ + ContentIQ</td><td>~$350K</td><td><span class="margin-pill">Beachhead</span></td></tr>
+      <tr><td>Year 2</td><td>Agency mature + Enterprise entry</td><td>~$720K</td><td><span class="margin-pill">Expansion</span></td></tr>
+      <tr><td>Year 3</td><td>Full platform + Adobe OEM deal</td><td>~$2M+</td><td><span class="margin-pill">Platform</span></td></tr>
     </tbody>
   </table>
 
   <div class="gtm-closer">
-    <strong>The bottom line</strong>
-    InteractIQ costs ~$0.003 to run. It replaces decisions that cost $80K/year in instructional design salaries. At any price point, margins exceed 85%. This is not a cost-sensitive product - it is a value-sensitive product.
+    <strong>The compounding strategy</strong>
+    Agency adoption funds Phase 2 build. Agency-built courses give us enterprise references. Enterprise logos unlock the Adobe conversation. Each stage is funded by the previous — no external investment required to reach $2M ARR.
   </div>
 </section>
 
 </main>
 
 <script>
-// ── Active nav on click ──
+// - Active nav on click -
 function setActive(el){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   el.classList.add('active');
 }
 
-// ── Active nav on scroll ──
+// - Active nav on scroll -
 const sections = document.querySelectorAll('section[id]');
 const navItems = document.querySelectorAll('.nav-item');
 
