@@ -278,10 +278,36 @@ Alternative: ${result.recommendation.alternativeInteraction}`;
               )}
             </div>
 
+            {result.classification.confidence < 0.75 && (
+  <div className={`confidence-notice ${
+    result.classification.confidence < 0.50 ? "notice-low" : "notice-mid"
+  }`}>
+    <span className="notice-icon">⚠</span>
+    <div className="notice-body">
+      <div className="notice-title">
+        {result.classification.confidence < 0.50
+          ? "Low confidence — human judgment needed"
+          : "Moderate confidence — review recommended"}
+      </div>
+      <div className="notice-text">
+        {result.classification.confidence < 0.50
+          ? "Signals are unclear or competing. Use this as a starting point only. Consider breaking your content into smaller, more focused units."
+          : "A pattern was identified but signals are mixed. Validate this recommendation before building."}
+      </div>
+    </div>
+  </div>
+)}
             {/* Primary recommendation */}
             <div className="card recommendation-card">
               <div className="rec-header">
-                <div className="rec-badge">✓ Recommended</div>
+                <div className={`rec-badge ${
+                  result.classification.confidence < 0.50 ? "rec-badge-low" :
+                  result.classification.confidence < 0.75 ? "rec-badge-mid" : ""
+                }`}>
+                {result.classification.confidence < 0.50 ? "⚠ Low confidence" :
+                 result.classification.confidence < 0.75 ? "○ Review recommended" :
+                 "✓ Recommended"}
+</div>
                 <h2 className="rec-interaction">{result.recommendation.primaryInteraction}</h2>
               </div>
 
